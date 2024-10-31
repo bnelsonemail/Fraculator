@@ -59,67 +59,62 @@ class FractionCalculator:
 
     def main(self):
         """Handle welcome statement, user input, and function routing logic."""
-        try:
-            func_type = input("Welcome to the Fraction Calculator.  What type"
-                              " of calcuation do you need to perform?  "
-                              "\nPlease choose from the following: add, "
-                              "subtract, multiply, or "
-                              "divide:  ").strip().lower()
-            numerator1 = int(input("\nEnter the integer value for "
-                                   "numerator 1:  "))
-            numerator2 = int(input("Enter the integer value for "
-                                   "numerator 2:  "))
-            denominator1 = int(input("Enter the integer value for "
-                                     "denominator 1: "))
-            denominator2 = int(input("Enter the integer value for "
-                                     "denominator 2: "))
+        print("Welcome to the Fraction Calculator.")
+        while True:
+            func_type = input(
+                "What calculation do you need to perform? Choose: "
+                "add, subtract, multiply, or divide: "
+            ).strip().lower()
 
-            self.fraction1 = Fraction(numerator1, denominator1)
-            self.fraction2 = Fraction(numerator2, denominator2)
+            try:
+                fraction1 = Fraction(input('Enter first fraction (a/b): '))
+                fraction2 = Fraction(input('Enter second fraction (a/b): '))
 
-            func_type = func_type.lower()
-            if func_type in ['add', 'subtract', 'multiply', 'divide']:
-                match func_type:
-                    case 'add':
-                        print(f"The result of adding {self.fraction1} and "
-                              "{self.fraction2} is: {self.add()}")
-                    case 'subtract':
-                        print(f"The result of subtracting {self.fraction1} and"
-                              " {self.fraction2} is: {self.subtract()}")
-                    case 'multiply':
-                        print(f"The result of multiplying {self.fraction1} and"
-                              " {self.fraction2} is: {self.multiply()}")
-                    case 'divide':
-                        if self.divide() is not None:
-                            print(f"The result of dividing {self.fraction1} by"
-                                  " {self.fraction2} is: {self.divide()}")
-            else:
-                print("Invalid calculation type entered.")
-                self.main()
+                if func_type in ['add', 'subtract', 'multiply', 'divide']:
+                    match func_type:
+                        case 'add':
+                            self.add(fraction1, fraction2)
+                        case 'subtract':
+                            self.subtract(fraction1, fraction2)
+                        case 'multiply':
+                            self.multiply(fraction1, fraction2)
+                        case 'divide':
+                            self.divide(fraction1, fraction2)
+                    break  # Exit after a successful calculation
+                else:
+                    print("Invalid calculation type entered.")
+            except ZeroDivisionError:
+                print("Error: Division by zero is undefined, please try "
+                      "again.")
+            except ValueError:
+                print("Invalid input. Enter fractions in 'a/b' format.")
 
-        except ValueError:
-            print("Invalid input. Please enter integer values for numerators "
-                  "and denominators.")
-            self.main()
-
-    def add(self):
+    def add(self, fraction1, fraction2):
         """Return the sum of fraction1 and fraction2."""
-        return self.fraction1 + self.fraction2
+        result = fraction1 + fraction2
+        print(f'\nThe result of adding {fraction1} and {fraction2} '
+              f'equals {result}')
 
-    def subtract(self):
+    def subtract(self, fraction1, fraction2):
         """Return the difference of fraction1 and fraction2."""
-        return self.fraction1 - self.fraction2
+        result = fraction1 - fraction2
+        print(f'\nThe result of subtracting {fraction2} from {fraction1} '
+              f'equals {result}')
 
-    def multiply(self):
+    def multiply(self, fraction1, fraction2):
         """Return the product of fraction1 and fraction2."""
-        return self.fraction1 * self.fraction2
+        result = fraction1 * fraction2
+        print(f'\nThe result of multiplying {fraction1} and {fraction2} '
+              f'equals {result}')
 
-    def divide(self):
+    def divide(self, fraction1, fraction2):
         """Return the division of fraction1 by fraction2."""
-        if self.fraction2 == 0:
-            print("Cannot divide by zero.")
-            return None
-        return self.fraction1 / self.fraction2
+        try:
+            result = fraction1 / fraction2
+            print(f'\nThe result of dividing {fraction1} by {fraction2} '
+                  f'equals {result}')
+        except ZeroDivisionError:
+            print("Error: Division by zero is undefined.")
 
 
 if __name__ == "__main__":
