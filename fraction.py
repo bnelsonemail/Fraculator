@@ -60,4 +60,14 @@ class FractionCalculator:
         func_type = input("Welcome to the Fraction Calculator.  What type"
                           " of calcuation do you need to perform?  \nPlease"
                           "choose from the following: add, subtract, "
-                          "multiply, or divide")
+                          "multiply, or divide:  ")
+        numerator1 = input("\nEnter the integer value for numerator 1:  ")
+        numerator2 = input("Enter the integer value for numerator 2:  ")
+        denominator1 = input("Enter the integer value for denominator 1:  ")
+        denominator2 = input("Enter the integer value for denominator 2:  ")
+
+        try:
+            func_type = func_type.lower()
+            if func_type in ['add', 'subtract', 'multiply', 'divide']:
+                match func_type:
+                    case 'add':
